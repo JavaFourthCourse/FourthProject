@@ -67,4 +67,22 @@ public class Main
 		
 		return words.size();
 	}
+	
+	private static void fourthMethod(List<Integer> list)
+	{
+		list.sort((first, second) ->
+		{
+			if (first >= 0)
+			{
+				return -1;
+			}
+			
+			if (second > 0)
+			{
+				return 1;
+			}
+			
+			return 0;
+		});
+	}
 }
