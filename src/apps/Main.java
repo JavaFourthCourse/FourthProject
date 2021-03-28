@@ -2,12 +2,17 @@ package apps;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Scanner;
+
+import apps.utility.CaseInsensitiveString;
 
 public class Main
 {
@@ -18,8 +23,7 @@ public class Main
 	
 	private static void firstMethod(File file) throws IOException
 	{
-		FileReader in = new FileReader(file);
-		BufferedReader reader = new BufferedReader(in);
+		BufferedReader reader = new BufferedReader(new FileReader(file));
 		List<String> list = new ArrayList<>();
 		
 		while (true)
@@ -34,7 +38,7 @@ public class Main
 			list.add(line);
 		}
 		
-		in.close();
+		reader.close();
 		
 		ListIterator<String> iterator = list.listIterator(list.size());
 		FileWriter writer = new FileWriter(file);
@@ -47,5 +51,20 @@ public class Main
 		}
 		
 		writer.close();
+	}
+	
+	private static int thirdMethod(File file) throws IOException
+	{
+		Scanner scanner = new Scanner(new FileInputStream(file));
+		HashSet<CaseInsensitiveString> words = new HashSet<>();
+		
+		while (scanner.hasNext())
+		{
+			CaseInsensitiveString word = new CaseInsensitiveString(scanner.next());
+			
+			words.add(word.replaceAll("[.!?,]", ""));
+		}
+		
+		return words.size();
 	}
 }
